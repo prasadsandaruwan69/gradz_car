@@ -53,7 +53,7 @@ export default function Navbar() {
               <img
                 src="/logo.png"
                 alt="Logo"
-                className="h-16 w-auto object-contain"
+                className="h-20 w-auto object-contain"
               />
             </div>
 
@@ -106,10 +106,10 @@ export default function Navbar() {
             Catalog
           </a>
           <a href="#" className="block px-6 py-3 text-white hover:bg-zinc-800 hover:text-amber-500 border-b border-zinc-800 transition-colors">
-            Collections
+            Stock
           </a>
           <a href="#" className="block px-6 py-3 text-white hover:bg-zinc-800 hover:text-amber-500 border-b border-zinc-800 transition-colors">
-            Products
+            News
           </a>
           <a href="#" className="block px-6 py-3 text-white hover:bg-zinc-800 hover:text-amber-500 border-b border-zinc-800 transition-colors">
             About
