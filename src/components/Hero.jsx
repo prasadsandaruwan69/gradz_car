@@ -1,5 +1,9 @@
 "use client";
 import { useState, useEffect } from "react";
+import VisionMission from "./VisionMition";
+import Grandcarcapital from "./grandzcapital";
+import Profile from "./profile";
+import GrandCarzPartnership from "./GrandCarzPartnership";
 
 export default function Hero() {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -9,6 +13,7 @@ export default function Hero() {
   }, []);
 
   return (
+<div>
     <section className="relative min-h-screen flex flex-col justify-center items-center text-center overflow-hidden">
       {/* Video Background */}
       <div className="absolute inset-0 w-full h-full">
@@ -29,16 +34,14 @@ export default function Hero() {
       {/* Content */}
       <div className={`relative z-10 px-4 transform transition-all duration-1000 ${isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
         {/* Shining Title */}
-        <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6">
-     
-        </h1>
+   
 
         {/* Subtitle with shine effect */}
-        <h2 className="text-2xl md:text-4xl font-semibold text-amber-500 mb-6 tracking-wider">
+        <h1 className="text-4xl md:text-6xl font-semibold text-amber-500 mb-6 tracking-wider">
           <span className="inline-block ">
             Luxury Meets Performance
           </span>
-        </h2>
+        </h1>
 
         {/* Description */}
         <p className="mt-6 text-gray-200 text-lg md:text-xl max-w-3xl mx-auto leading-relaxed px-4">
@@ -65,5 +68,10 @@ export default function Hero() {
 
 
     </section>
+    <Grandcarcapital />
+    <VisionMission />
+    <GrandCarzPartnership />
+    <Profile />
+    </div>
   );
 }

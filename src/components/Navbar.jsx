@@ -1,10 +1,18 @@
 "use client";
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 import { Menu, X, Search, Facebook, Instagram, Twitter, Linkedin, Youtube, Phone } from "lucide-react";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
 
+    const linkClasses = (path) =>
+    `text-sm tracking-wide uppercase transition-colors font-medium ${
+      pathname === path
+        ? "text-amber-500"
+        : "text-white hover:text-amber-500"
+    }`;
   return (
     <nav className="bg-zinc-900 text-white fixed w-full z-50 top-0">
       {/* Top Bar */}
@@ -37,7 +45,7 @@ export default function Navbar() {
             <div className="hidden md:flex items-center">
               <div className="flex gap-2 text-amber-500">
                 <Phone size={18} />
-                <span className="text-sm font-semibold">Free Support: (012) 800 456 789</span>
+                <span className="text-sm font-semibold">Free Support: 076 190 88 88, 011 429 45 94</span>
               </div>
             </div>
           </div>
@@ -59,23 +67,24 @@ export default function Navbar() {
 
             {/* Navigation Links - Center */}
             <div className="hidden lg:flex items-center space-x-10">
-              <a href="#" className="text-amber-500 hover:text-amber-400 transition-colors font-medium text-sm tracking-wide uppercase">
+              <a href="/" className={linkClasses("/")}>
                 Home
               </a>
-              <a href="#" className="text-white hover:text-amber-500 transition-colors text-sm tracking-wide uppercase">
-                Catalog
+              <a href="/stocks" className={linkClasses("/stocks")}>
+                Stocks
               </a>
-              <a href="#" className="text-white hover:text-amber-500 transition-colors text-sm tracking-wide uppercase">
-                Collections
+           
+              <a href="/news" className={linkClasses("/news")}>
+                News
               </a>
-              <a href="#" className="text-white hover:text-amber-500 transition-colors text-sm tracking-wide uppercase">
-                Products
+                 <a href="/reviews" className={linkClasses("/reviews")}>
+                Customer reviews
               </a>
-              <a href="#" className="text-white hover:text-amber-500 transition-colors text-sm tracking-wide uppercase">
+              {/* <a href="#" className="text-white hover:text-amber-500 transition-colors text-sm tracking-wide uppercase">
                 About
-              </a>
-              <a href="#" className="text-white hover:text-amber-500 transition-colors text-sm tracking-wide uppercase">
-                Contact
+              </a> */}
+              <a href="/contacts" className={linkClasses("/contacts")}>
+                Contact Us
               </a>
             </div>
 
@@ -99,22 +108,22 @@ export default function Navbar() {
       {/* Mobile Menu */}
       {isOpen && (
         <div className="lg:hidden bg-zinc-900 border-t border-zinc-800">
-          <a href="#" className="block px-6 py-3 text-amber-500 hover:bg-zinc-800 border-b border-zinc-800 transition-colors">
+          <a href="/" className="block px-6 py-3 text-amber-500 hover:bg-zinc-800 border-b border-zinc-800 transition-colors">
             Home
           </a>
-          <a href="#" className="block px-6 py-3 text-white hover:bg-zinc-800 hover:text-amber-500 border-b border-zinc-800 transition-colors">
-            Catalog
+          <a href="stock" className="block px-6 py-3 text-white hover:bg-zinc-800 hover:text-amber-500 border-b border-zinc-800 transition-colors">
+           Stock
           </a>
-          <a href="#" className="block px-6 py-3 text-white hover:bg-zinc-800 hover:text-amber-500 border-b border-zinc-800 transition-colors">
-            Stock
-          </a>
-          <a href="#" className="block px-6 py-3 text-white hover:bg-zinc-800 hover:text-amber-500 border-b border-zinc-800 transition-colors">
+          <a href="news" className="block px-6 py-3 text-white hover:bg-zinc-800 hover:text-amber-500 border-b border-zinc-800 transition-colors">
             News
           </a>
-          <a href="#" className="block px-6 py-3 text-white hover:bg-zinc-800 hover:text-amber-500 border-b border-zinc-800 transition-colors">
-            About
+          <a href="/reviews" className="block px-6 py-3 text-white hover:bg-zinc-800 hover:text-amber-500 border-b border-zinc-800 transition-colors">
+                        Customer reviews
           </a>
-          <a href="#" className="block px-6 py-3 text-white hover:bg-zinc-800 hover:text-amber-500 transition-colors">
+          {/* <a href="#" className="block px-6 py-3 text-white hover:bg-zinc-800 hover:text-amber-500 border-b border-zinc-800 transition-colors">
+            About
+          </a> */}
+          <a href="/contacs" className="block px-6 py-3 text-white hover:bg-zinc-800 hover:text-amber-500 transition-colors">
             Contact
           </a>
         </div>
