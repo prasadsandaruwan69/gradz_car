@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
-import { Menu, X, Search, Facebook, Instagram, Twitter, Linkedin, Youtube, Phone } from "lucide-react";
+import { Menu, X, Search, Facebook,Instagram,Twitter,Linkedin,Youtube, Phone } from "lucide-react";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
