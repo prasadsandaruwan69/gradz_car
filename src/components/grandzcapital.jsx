@@ -1,6 +1,7 @@
 "use client";
 
 import React from 'react';
+import { motion } from "framer-motion";
 import { ArrowRight, Shield, Globe, CheckCircle } from 'lucide-react';
 
 export default function GrandCarzHero() {
@@ -73,8 +74,16 @@ export default function GrandCarzHero() {
           </div>
 
           {/* Right Side - Image/Graphic */}
-
-
+    <div className="flex justify-center lg:justify-end z-10">
+      <motion.img
+        src="/Black-VEzel-GrandCarzWebFront.png"
+        alt="Grand Carz Showroom"
+        className="w-full max-w-md lg:max-w-lg rounded-lg shadow-2xl"
+        initial={{ opacity: 0, y: 50 }}   // Start hidden and slightly below
+        animate={{ opacity: 1, y: 0 }}    // Animate to visible and normal position
+        transition={{ duration: 1, ease: "easeOut" }} // Smooth transition
+      />
+    </div>
         </div>
       </div>
 

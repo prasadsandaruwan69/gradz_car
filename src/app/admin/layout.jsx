@@ -1,21 +1,20 @@
 "use client";
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useState } from "react";
+import Sidebar from "./components/Sidebar";
+import Navbar from "./components/Navbar";
 
 export default function AdminLayout({ children }) {
-  const router = useRouter();
-
-//   useEffect(() => {
-//     const isAdmin = localStorage.getItem("isAdmin"); // or cookie/session
-//     if (!isAdmin) {
-//       router.push("/admin/login");
-//     }
-//   }, [router]);
+  const [isCollapsed, setIsCollapsed] = useState(false);
 
   return (
-    <div className="min-h-screen bg-gray-100">
-      {/* Admin sidebar / topbar can go here */}
-      {children}
+    <div className="flex min-h-screen bg-[#0a0a0a] text-gray-100">
+      <Sidebar isCollapsed={isCollapsed} />
+      <div className="flex-1 flex flex-col">
+        <Navbar onToggleSidebar={() => setIsCollapsed(!isCollapsed)} />
+        <main className="flex-1 p-6 overflow-y-auto transition-all duration-300">
+          {children}
+        </main>
+      </div>
     </div>
   );
 }
