@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import VisionMission from "./VisionMition";
+import Link from "next/link";
 import Grandcarcapital from "./grandzcapital";
 import Profile from "./profile";
 import GrandCarzPartnership from "./GrandCarzPartnership";
@@ -14,7 +15,7 @@ export default function Hero() {
 
   return (
 <div>
-    <section className="relative min-h-screen flex flex-col justify-center items-center text-center overflow-hidden">
+    <section className="relative min-h-screen pt-20 flex flex-col justify-center items-center text-center overflow-hidden">
       {/* Video Background */}
       <div className="absolute inset-0 w-full h-full">
         <video
@@ -52,14 +53,17 @@ export default function Hero() {
 
         {/* CTA Buttons */}
         <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center items-center">
+          <Link href="/stocks">
           <button className="group relative px-8 py-4 bg-amber-500 text-black font-bold rounded-full overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-amber-500/50">
-            <span className="relative z-10">Explore Collection</span>
+            <span className="relative z-10"> Explore Collection</span>
             <div className="absolute inset-0 bg-gradient-to-r from-amber-400 to-amber-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
           </button>
-          
+          </Link>
+          <Link href="/contacts">
           <button className="px-8 py-4 bg-transparent border-2 border-white text-white font-bold rounded-full hover:bg-white hover:text-black transition-all duration-300 hover:scale-105">
             Contact Us
           </button>
+          </Link>
         </div>
 
         {/* Scroll Indicator */}

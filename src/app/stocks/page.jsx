@@ -326,21 +326,22 @@ export default function StockPage() {
                 )}
 
                 {/* Tabs */}
-                <div className="flex gap-2 border-b border-gray-700">
-                  {['Overview', 'Features', 'Specifications'].map((tab) => (
-                    <button
-                      key={tab}
-                      onClick={() => setActiveTab(tab.toLowerCase())}
-                      className={`px-6 py-3 font-semibold transition-all border-b-2 ${
-                        activeTab === tab.toLowerCase()
-                          ? 'text-amber-400 border-amber-400'
-                          : 'text-gray-400 border-transparent hover:text-white'
-                      }`}
-                    >
-                      {tab}
-                    </button>
-                  ))}
-                </div>
+         <div className="flex flex-wrap justify-center gap-2 border-b border-gray-700">
+  {['Overview', 'Features', 'Specifications'].map((tab) => (
+    <button
+      key={tab}
+      onClick={() => setActiveTab(tab.toLowerCase())}
+      className={`px-4 py-2 text-sm sm:px-6 sm:py-3 sm:text-base font-semibold transition-all border-b-2 ${
+        activeTab === tab.toLowerCase()
+          ? 'text-amber-400 border-amber-400'
+          : 'text-gray-400 border-transparent hover:text-white'
+      }`}
+    >
+      {tab}
+    </button>
+  ))}
+</div>
+
 
                 {/* Tab Content */}
                 <div className="space-y-4">

@@ -1,12 +1,10 @@
+// app/layout.js
 import "./globals.css";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
-import AdminWrapper from "../components/AdminWrapper";
+import ClientLayout from './ClientLayout';
 
 export const metadata = {
-  title: "Gradz Car - Premium Automotive Imports",
-  description:
-    "Experience luxury and performance with Gradz Car, Sri Lanka's premier automotive importer specializing in meticulously verified vehicles from Japan and global markets.",
+  title: "Grand Carz - Premium Automotive Imports",
+  description: "Experience luxury and performance with Grand Carz, Sri Lanka's premier automotive importer.",
 };
 
 export default function RootLayout({ children }) {
@@ -20,11 +18,10 @@ export default function RootLayout({ children }) {
           rel="stylesheet"
         />
       </head>
-      <body className="antialiased font-['SUSE_Mono']">
-        {/* AdminWrapper will decide whether to show Navbar/Footer */}
-        <AdminWrapper>
+      <body className="antialiased font-['SUSE_Mono'] bg-black text-white">
+        <ClientLayout>
           {children}
-        </AdminWrapper>
+        </ClientLayout>
       </body>
     </html>
   );

@@ -9,8 +9,10 @@ export default function Sidebar({ isCollapsed }) {
   const menu = [
     { name: "Dashboard", icon: <Home size={20} />, path: "/admin" },
     { name: "Vehicles", icon: <Car size={20} />, path: "/admin/vehicles" },
-    { name: "Reports", icon: <FileText size={20} />, path: "/admin/reports" },
+    { name: "Review", icon: <FileText size={20} />, path: "/admin/reviews" },
+    { name: "News", icon: <Layers size={20} />, path: "/admin/news" },
     { name: "Content", icon: <Layers size={20} />, path: "/admin/content" },
+
   ];
 
   return (
