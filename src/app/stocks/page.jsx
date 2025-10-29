@@ -1,33 +1,46 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
-import { Search, X, Heart, Share2, MapPin, Gauge, Fuel, ChevronLeft, ChevronRight, Eye, Phone, Mail } from 'lucide-react';
+import React, { useState, useEffect } from "react";
+import {
+  Search,
+  X,
+  Heart,
+  Share2,
+  MapPin,
+  Gauge,
+  Fuel,
+  ChevronLeft,
+  ChevronRight,
+  Eye,
+  Phone,
+  Mail,
+} from "lucide-react";
 
 export default function StockPage() {
   const [vehicles, setVehicles] = useState([]);
   const [selectedVehicle, setSelectedVehicle] = useState(null);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const [visibleVehicles, setVisibleVehicles] = useState({});
   const [wishlist, setWishlist] = useState([]);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [activeTab, setActiveTab] = useState('overview');
+  const [activeTab, setActiveTab] = useState("overview");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000';
+  const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000";
 
   // Fetch vehicles from API
   useEffect(() => {
     const fetchVehicles = async () => {
       try {
         const response = await fetch(`${API_URL}/api/vehicles`);
-        if (!response.ok) throw new Error('Failed to fetch vehicles');
+        if (!response.ok) throw new Error("Failed to fetch vehicles");
         const data = await response.json();
-        console.log('Fetched vehicles:', data);
+        console.log("Fetched vehicles:", data);
         setVehicles(Array.isArray(data) ? data : []);
         setLoading(false);
       } catch (err) {
-        console.error('Fetch error:', err);
+        console.error("Fetch error:", err);
         setError(err.message);
         setLoading(false);
       }
@@ -51,20 +64,24 @@ export default function StockPage() {
       { threshold: 0.2 }
     );
 
-    document.querySelectorAll('[data-id]').forEach((el) => observer.observe(el));
+    document
+      .querySelectorAll("[data-id]")
+      .forEach((el) => observer.observe(el));
     return () => observer.disconnect();
   }, [vehicles]);
 
   // Filter and search logic - ONLY SEARCH
   const filteredVehicles = vehicles.filter((vehicle) => {
     if (!searchTerm) return true;
-    
+
     const matchesSearch =
       vehicle.make?.toLowerCase().includes(searchTerm.toLowerCase()) ||
       vehicle.model?.toLowerCase().includes(searchTerm.toLowerCase()) ||
       vehicle.stock_number?.toLowerCase().includes(searchTerm.toLowerCase()) ||
       vehicle.chassis_no?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      `${vehicle.make} ${vehicle.model}`.toLowerCase().includes(searchTerm.toLowerCase());
+      `${vehicle.make} ${vehicle.model}`
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase());
     return matchesSearch;
   });
 
@@ -76,19 +93,19 @@ export default function StockPage() {
 
   const getCategoryColor = (category) => {
     const colors = {
-      sedan: 'bg-blue-600/20 text-blue-400',
-      suv: 'bg-green-600/20 text-green-400',
-      hybrid: 'bg-purple-600/20 text-purple-400',
-      luxury: 'bg-yellow-600/20 text-yellow-400',
-      hatchback: 'bg-pink-600/20 text-pink-400',
+      sedan: "bg-blue-600/20 text-blue-400",
+      suv: "bg-green-600/20 text-green-400",
+      hybrid: "bg-purple-600/20 text-purple-400",
+      luxury: "bg-yellow-600/20 text-yellow-400",
+      hatchback: "bg-pink-600/20 text-pink-400",
     };
-    return colors[category?.toLowerCase()] || 'bg-gray-600/20 text-gray-400';
+    return colors[category?.toLowerCase()] || "bg-gray-600/20 text-gray-400";
   };
 
-  const currentVehicle = selectedVehicle ? vehicles.find((v) => v.id === selectedVehicle) : null;
+  const currentVehicle = selectedVehicle
+    ? vehicles.find((v) => v.id === selectedVehicle)
+    : null;
 
-  if (loading) return <div className="text-center p-4 text-white">Loading vehicles...</div>;
-  if (error) return <div className="text-center p-4 text-red-500">Error: {error}</div>;
 
   return (
     <div className="bg-black text-white overflow-hidden">
@@ -96,11 +113,16 @@ export default function StockPage() {
       <section className="relative pt-50 pb-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12 animate-fadeInUp">
-            <p className="text-amber-400 text-sm font-bold uppercase tracking-widest mb-4">Our Inventory</p>
+            <p className="text-amber-400 text-sm font-bold uppercase tracking-widest mb-4">
+              Our Inventory
+            </p>
             <h1 className="text-4xl md:text-5xl font-black mb-6 bg-gradient-to-r from-amber-300 via-amber-400 to-amber-500 bg-clip-text text-transparent">
               Premium Vehicles
             </h1>
-            <p className="text-gray-300 text-xl max-w-3xl mx-auto">Browse our carefully selected collection of quality Japanese vehicles</p>
+            <p className="text-gray-300 text-xl max-w-3xl mx-auto">
+              Browse our carefully selected collection of quality Japanese
+              vehicles
+            </p>
           </div>
 
           {/* Search Bar Only */}
@@ -118,7 +140,7 @@ export default function StockPage() {
                 />
                 {searchTerm && (
                   <button
-                    onClick={() => setSearchTerm('')}
+                    onClick={() => setSearchTerm("")}
                     className="mr-4 text-gray-400 hover:text-white transition-colors"
                   >
                     <X className="w-5 h-5" />
@@ -127,7 +149,8 @@ export default function StockPage() {
               </div>
             </div>
             <p className="text-center text-gray-400 text-sm mt-4">
-              Found {filteredVehicles.length} vehicle{filteredVehicles.length !== 1 ? 's' : ''}
+              Found {filteredVehicles.length} vehicle
+              {filteredVehicles.length !== 1 ? "s" : ""}
             </p>
           </div>
         </div>
@@ -138,7 +161,9 @@ export default function StockPage() {
         <div className="max-w-7xl mx-auto">
           {filteredVehicles.length === 0 ? (
             <div className="text-center py-20">
-              <p className="text-gray-400 text-xl">No vehicles found matching your search</p>
+              <p className="text-gray-400 text-xl">
+                No vehicles found matching your search
+              </p>
             </div>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -149,10 +174,12 @@ export default function StockPage() {
                   onClick={() => {
                     setSelectedVehicle(vehicle.id);
                     setCurrentImageIndex(0);
-                    setActiveTab('overview');
+                    setActiveTab("overview");
                   }}
                   className={`relative group cursor-pointer transition-all duration-500 transform ${
-                    visibleVehicles[`vehicle-${vehicle.id}`] ? 'animate-slideInUp' : 'opacity-0'
+                    visibleVehicles[`vehicle-${vehicle.id}`]
+                      ? "animate-slideInUp"
+                      : "opacity-0"
                   }`}
                   style={{ transitionDelay: `${idx * 50}ms` }}
                 >
@@ -162,19 +189,27 @@ export default function StockPage() {
                     {/* Image with Badge */}
                     <div className="relative h-48 bg-gray-800 overflow-hidden">
                       <img
-                        src={vehicle.images && vehicle.images[0] ? `${API_URL}${vehicle.images[0]}` : '/placeholder.jpg'}
+                        src={
+                          vehicle.images && vehicle.images[0]
+                            ? `${API_URL}${vehicle.images[0]}`
+                            : "/placeholder.jpg"
+                        }
                         alt={`${vehicle.make} ${vehicle.model}`}
                         className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
                         onError={(e) => {
-                          e.target.src = '/placeholder.jpg';
+                          e.target.src = "/placeholder.jpg";
                         }}
                       />
                       <div className="absolute top-3 right-3 bg-red-600 text-white px-3 py-1 rounded-full text-xs font-bold">
-                        {vehicle.status || 'Available'}
+                        {vehicle.status || "Available"}
                       </div>
                       <div className="absolute top-3 left-3">
-                        <span className={`inline-block px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider border ${getCategoryColor(vehicle.vehicle_type)}`}>
-                          {vehicle.vehicle_type || 'Vehicle'}
+                        <span
+                          className={`inline-block px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider border ${getCategoryColor(
+                            vehicle.vehicle_type
+                          )}`}
+                        >
+                          {vehicle.vehicle_type || "Vehicle"}
                         </span>
                       </div>
                     </div>
@@ -183,38 +218,44 @@ export default function StockPage() {
                     <div className="p-4 flex flex-col flex-1">
                       {/* Price */}
                       <p className="text-amber-400 font-bold text-xl mb-2">
-                        {vehicle.fob_price ? `Rs. ${Number(vehicle.fob_price).toLocaleString()}` : 'Contact for Price'}
+                        {vehicle.fob_price
+                          ? `Rs. ${Number(vehicle.fob_price).toLocaleString()}`
+                          : "Contact for Price"}
                       </p>
 
                       {/* Name */}
                       <h3 className="font-bold text-white mb-3 line-clamp-2 group-hover:text-amber-400 transition-colors text-lg">
-                        {vehicle.make} {vehicle.model} {vehicle.manufacture_year || ''}
+                        {vehicle.make} {vehicle.model}{" "}
+                        {vehicle.manufacture_year || ""}
                       </h3>
 
                       {/* Quick Info */}
                       <div className="space-y-2 mb-4 text-xs text-gray-400">
                         <div className="flex items-center gap-2">
-                          <Gauge className="w-3 h-3" /> {vehicle.mileage ? `${vehicle.mileage.toLocaleString()} km` : 'Mileage N/A'}
+                          <Gauge className="w-3 h-3" />{" "}
+                          {vehicle.mileage
+                            ? `${vehicle.mileage.toLocaleString()} km`
+                            : "Mileage N/A"}
                         </div>
                         <div className="flex items-center gap-2">
-                          <Fuel className="w-3 h-3" /> {vehicle.fuel || 'Fuel N/A'}
+                          <Fuel className="w-3 h-3" />{" "}
+                          {vehicle.fuel || "Fuel N/A"}
                         </div>
                         <div className="flex items-center gap-2">
-                          <MapPin className="w-3 h-3" /> {vehicle.stock_location || 'Location N/A'}
+                          <MapPin className="w-3 h-3" />{" "}
+                          {vehicle.stock_location || "Location N/A"}
                         </div>
                       </div>
 
                       {/* Meta */}
                       <div className="flex items-center justify-between pt-3 border-t border-amber-600/20 text-xs text-gray-500">
-                        <span>Stock: {vehicle.stock_number || 'N/A'}</span>
+                        <span>Stock: {vehicle.stock_number || "N/A"}</span>
                         <span>{vehicle.views || 0} views</span>
                       </div>
 
                       {/* Actions */}
                       <div className="flex gap-2 pt-4 mt-4 border-t border-amber-600/20">
-                        <button
-                          className="flex-1 px-3 py-2 bg-gradient-to-r from-amber-600 to-amber-500 text-black font-bold text-sm rounded-lg hover:shadow-lg transition-all flex items-center justify-center gap-2"
-                        >
+                        <button className="flex-1 px-3 py-2 bg-gradient-to-r from-amber-600 to-amber-500 text-black font-bold text-sm rounded-lg hover:shadow-lg transition-all flex items-center justify-center gap-2">
                           <Eye className="w-4 h-4" /> View
                         </button>
                         <button
@@ -224,11 +265,17 @@ export default function StockPage() {
                           }}
                           className={`px-3 py-2 rounded-lg font-bold text-sm transition-all ${
                             wishlist.includes(vehicle.id)
-                              ? 'bg-red-600 text-white'
-                              : 'bg-gray-800 text-gray-400 hover:bg-gray-700'
+                              ? "bg-red-600 text-white"
+                              : "bg-gray-800 text-gray-400 hover:bg-gray-700"
                           }`}
                         >
-                          <Heart className={`w-4 h-4 ${wishlist.includes(vehicle.id) ? 'fill-current' : ''}`} />
+                          <Heart
+                            className={`w-4 h-4 ${
+                              wishlist.includes(vehicle.id)
+                                ? "fill-current"
+                                : ""
+                            }`}
+                          />
                         </button>
                       </div>
                     </div>
@@ -247,9 +294,12 @@ export default function StockPage() {
             {/* Header with Close */}
             <div className="sticky top-0 bg-black border-b border-amber-600/20 p-4 sm:p-6 flex justify-between items-center z-10">
               <div>
-                <p className="text-amber-400 text-sm font-bold uppercase">{currentVehicle.make}</p>
+                <p className="text-amber-400 text-sm font-bold uppercase">
+                  {currentVehicle.make}
+                </p>
                 <h2 className="text-2xl sm:text-3xl font-bold text-white">
-                  {currentVehicle.make} {currentVehicle.model} {currentVehicle.manufacture_year || ''}
+                  {currentVehicle.make} {currentVehicle.model}{" "}
+                  {currentVehicle.manufacture_year || ""}
                 </h2>
               </div>
               <button
@@ -268,35 +318,46 @@ export default function StockPage() {
                 <div className="relative rounded-xl overflow-hidden bg-gray-800">
                   <img
                     src={
-                      currentVehicle.images && currentVehicle.images[currentImageIndex]
+                      currentVehicle.images &&
+                      currentVehicle.images[currentImageIndex]
                         ? `${API_URL}${currentVehicle.images[currentImageIndex]}`
-                        : '/placeholder.jpg'
+                        : "/placeholder.jpg"
                     }
                     alt={`${currentVehicle.make} ${currentVehicle.model}`}
                     className="w-full h-96 object-cover"
                     onError={(e) => {
-                      e.target.src = '/placeholder.jpg';
+                      e.target.src = "/placeholder.jpg";
                     }}
                   />
                   {/* Navigation Arrows */}
-                  {currentVehicle.images && currentVehicle.images.length > 1 && (
-                    <>
-                      <button
-                        onClick={() =>
-                          setCurrentImageIndex((prev) => (prev - 1 + currentVehicle.images.length) % currentVehicle.images.length)
-                        }
-                        className="absolute left-4 top-1/2 -translate-y-1/2 p-2 bg-amber-600/80 hover:bg-amber-500 rounded-full transition-all"
-                      >
-                        <ChevronLeft className="w-6 h-6 text-black" />
-                      </button>
-                      <button
-                        onClick={() => setCurrentImageIndex((prev) => (prev + 1) % currentVehicle.images.length)}
-                        className="absolute right-4 top-1/2 -translate-y-1/2 p-2 bg-amber-600/80 hover:bg-amber-500 rounded-full transition-all"
-                      >
-                        <ChevronRight className="w-6 h-6 text-black" />
-                      </button>
-                    </>
-                  )}
+                  {currentVehicle.images &&
+                    currentVehicle.images.length > 1 && (
+                      <>
+                        <button
+                          onClick={() =>
+                            setCurrentImageIndex(
+                              (prev) =>
+                                (prev - 1 + currentVehicle.images.length) %
+                                currentVehicle.images.length
+                            )
+                          }
+                          className="absolute left-4 top-1/2 -translate-y-1/2 p-2 bg-amber-600/80 hover:bg-amber-500 rounded-full transition-all"
+                        >
+                          <ChevronLeft className="w-6 h-6 text-black" />
+                        </button>
+                        <button
+                          onClick={() =>
+                            setCurrentImageIndex(
+                              (prev) =>
+                                (prev + 1) % currentVehicle.images.length
+                            )
+                          }
+                          className="absolute right-4 top-1/2 -translate-y-1/2 p-2 bg-amber-600/80 hover:bg-amber-500 rounded-full transition-all"
+                        >
+                          <ChevronRight className="w-6 h-6 text-black" />
+                        </button>
+                      </>
+                    )}
                 </div>
 
                 {/* Thumbnail Gallery */}
@@ -308,8 +369,8 @@ export default function StockPage() {
                         onClick={() => setCurrentImageIndex(idx)}
                         className={`flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden border-2 transition-all ${
                           idx === currentImageIndex
-                            ? 'border-amber-400 scale-110'
-                            : 'border-gray-700 hover:border-amber-600/50'
+                            ? "border-amber-400 scale-110"
+                            : "border-gray-700 hover:border-amber-600/50"
                         }`}
                       >
                         <img
@@ -317,7 +378,7 @@ export default function StockPage() {
                           alt={`View ${idx + 1}`}
                           className="w-full h-full object-cover"
                           onError={(e) => {
-                            e.target.src = '/placeholder.jpg';
+                            e.target.src = "/placeholder.jpg";
                           }}
                         />
                       </button>
@@ -326,113 +387,172 @@ export default function StockPage() {
                 )}
 
                 {/* Tabs */}
-         <div className="flex flex-wrap justify-center gap-2 border-b border-gray-700">
-  {['Overview', 'Features', 'Specifications'].map((tab) => (
-    <button
-      key={tab}
-      onClick={() => setActiveTab(tab.toLowerCase())}
-      className={`px-4 py-2 text-sm sm:px-6 sm:py-3 sm:text-base font-semibold transition-all border-b-2 ${
-        activeTab === tab.toLowerCase()
-          ? 'text-amber-400 border-amber-400'
-          : 'text-gray-400 border-transparent hover:text-white'
-      }`}
-    >
-      {tab}
-    </button>
-  ))}
-</div>
-
+                <div className="flex flex-wrap justify-center gap-2 border-b border-gray-700">
+                  {["Overview", "Features", "Specifications"].map((tab) => (
+                    <button
+                      key={tab}
+                      onClick={() => setActiveTab(tab.toLowerCase())}
+                      className={`px-4 py-2 text-sm sm:px-6 sm:py-3 sm:text-base font-semibold transition-all border-b-2 ${
+                        activeTab === tab.toLowerCase()
+                          ? "text-amber-400 border-amber-400"
+                          : "text-gray-400 border-transparent hover:text-white"
+                      }`}
+                    >
+                      {tab}
+                    </button>
+                  ))}
+                </div>
 
                 {/* Tab Content */}
                 <div className="space-y-4">
-                  {activeTab === 'overview' && (
+                  {activeTab === "overview" && (
                     <div className="space-y-4">
-                      <p className="text-gray-300 leading-relaxed text-lg">{currentVehicle.remarks || 'No description available'}</p>
+                      <p className="text-gray-300 leading-relaxed text-lg">
+                        {currentVehicle.remarks || "No description available"}
+                      </p>
                       <div className="bg-gray-800/50 border border-amber-600/20 rounded-lg p-4">
-                        <p className="text-amber-400 font-semibold mb-2">Condition</p>
-                        <p className="text-white text-lg">{currentVehicle.condition || 'N/A'}</p>
+                        <p className="text-amber-400 font-semibold mb-2">
+                          Condition
+                        </p>
+                        <p className="text-white text-lg">
+                          {currentVehicle.condition || "N/A"}
+                        </p>
                       </div>
                       <div className="bg-gray-800/50 border border-amber-600/20 rounded-lg p-4">
-                        <p className="text-amber-400 font-semibold mb-2">Stock Information</p>
+                        <p className="text-amber-400 font-semibold mb-2">
+                          Stock Information
+                        </p>
                         <div className="grid grid-cols-2 gap-3 text-sm">
                           <div>
                             <p className="text-gray-400">Stock Number</p>
-                            <p className="text-white font-semibold">{currentVehicle.stock_number || 'N/A'}</p>
+                            <p className="text-white font-semibold">
+                              {currentVehicle.stock_number || "N/A"}
+                            </p>
                           </div>
                           <div>
                             <p className="text-gray-400">Chassis Number</p>
-                            <p className="text-white font-semibold">{currentVehicle.chassis_no || 'N/A'}</p>
+                            <p className="text-white font-semibold">
+                              {currentVehicle.chassis_no || "N/A"}
+                            </p>
                           </div>
                         </div>
                       </div>
                     </div>
                   )}
 
-                  {activeTab === 'features' && (
+                  {activeTab === "features" && (
                     <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                       {currentVehicle.accessories_options &&
-                        Object.entries(currentVehicle.accessories_options).map(([category, features]) =>
-                          Object.entries(features)
-                            .filter(([_, value]) => value)
-                            .map(([key], idx) => (
-                              <div key={`${category}-${idx}`} className="flex items-center gap-3 p-3 bg-gray-800/50 border border-amber-600/20 rounded-lg">
-                                <div className="w-2 h-2 bg-amber-500 rounded-full flex-shrink-0"></div>
-                                <span className="text-gray-300 text-sm">
-                                  {key.replace(/_/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())}
-                                </span>
-                              </div>
-                            ))
+                        Object.entries(currentVehicle.accessories_options).map(
+                          ([category, features]) =>
+                            Object.entries(features)
+                              .filter(([_, value]) => value)
+                              .map(([key], idx) => (
+                                <div
+                                  key={`${category}-${idx}`}
+                                  className="flex items-center gap-3 p-3 bg-gray-800/50 border border-amber-600/20 rounded-lg"
+                                >
+                                  <div className="w-2 h-2 bg-amber-500 rounded-full flex-shrink-0"></div>
+                                  <span className="text-gray-300 text-sm">
+                                    {key
+                                      .replace(/_/g, " ")
+                                      .replace(/\b\w/g, (c) => c.toUpperCase())}
+                                  </span>
+                                </div>
+                              ))
                         )}
-                      {(!currentVehicle.accessories_options || 
-                        Object.values(currentVehicle.accessories_options).every(cat => 
-                          Object.values(cat).every(v => !v)
+                      {(!currentVehicle.accessories_options ||
+                        Object.values(currentVehicle.accessories_options).every(
+                          (cat) => Object.values(cat).every((v) => !v)
                         )) && (
-                        <p className="text-gray-400 col-span-full text-center py-8">No features available</p>
+                        <p className="text-gray-400 col-span-full text-center py-8">
+                          No features available
+                        </p>
                       )}
                     </div>
                   )}
 
-                  {activeTab === 'specifications' && (
+                  {activeTab === "specifications" && (
                     <div className="grid grid-cols-2 gap-3">
                       <div className="bg-gray-800/50 border border-amber-600/20 rounded-lg p-4">
-                        <p className="text-amber-400 text-xs font-bold uppercase mb-2">Model</p>
-                        <p className="text-white font-semibold">{currentVehicle.model || 'N/A'}</p>
+                        <p className="text-amber-400 text-xs font-bold uppercase mb-2">
+                          Model
+                        </p>
+                        <p className="text-white font-semibold">
+                          {currentVehicle.model || "N/A"}
+                        </p>
                       </div>
                       <div className="bg-gray-800/50 border border-amber-600/20 rounded-lg p-4">
-                        <p className="text-amber-400 text-xs font-bold uppercase mb-2">Model Code</p>
-                        <p className="text-white font-semibold">{currentVehicle.model_code || 'N/A'}</p>
+                        <p className="text-amber-400 text-xs font-bold uppercase mb-2">
+                          Model Code
+                        </p>
+                        <p className="text-white font-semibold">
+                          {currentVehicle.model_code || "N/A"}
+                        </p>
                       </div>
                       <div className="bg-gray-800/50 border border-amber-600/20 rounded-lg p-4">
-                        <p className="text-amber-400 text-xs font-bold uppercase mb-2">Engine</p>
-                        <p className="text-white font-semibold">{currentVehicle.engine_model || 'N/A'}</p>
+                        <p className="text-amber-400 text-xs font-bold uppercase mb-2">
+                          Engine
+                        </p>
+                        <p className="text-white font-semibold">
+                          {currentVehicle.engine_model || "N/A"}
+                        </p>
                       </div>
                       <div className="bg-gray-800/50 border border-amber-600/20 rounded-lg p-4">
-                        <p className="text-amber-400 text-xs font-bold uppercase mb-2">CC</p>
-                        <p className="text-white font-semibold">{currentVehicle.engine_cc || 'N/A'} cc</p>
+                        <p className="text-amber-400 text-xs font-bold uppercase mb-2">
+                          CC
+                        </p>
+                        <p className="text-white font-semibold">
+                          {currentVehicle.engine_cc || "N/A"} cc
+                        </p>
                       </div>
                       <div className="bg-gray-800/50 border border-amber-600/20 rounded-lg p-4">
-                        <p className="text-amber-400 text-xs font-bold uppercase mb-2">Transmission</p>
-                        <p className="text-white font-semibold">{currentVehicle.transmission || 'N/A'}</p>
+                        <p className="text-amber-400 text-xs font-bold uppercase mb-2">
+                          Transmission
+                        </p>
+                        <p className="text-white font-semibold">
+                          {currentVehicle.transmission || "N/A"}
+                        </p>
                       </div>
                       <div className="bg-gray-800/50 border border-amber-600/20 rounded-lg p-4">
-                        <p className="text-amber-400 text-xs font-bold uppercase mb-2">Fuel Type</p>
-                        <p className="text-white font-semibold">{currentVehicle.fuel || 'N/A'}</p>
+                        <p className="text-amber-400 text-xs font-bold uppercase mb-2">
+                          Fuel Type
+                        </p>
+                        <p className="text-white font-semibold">
+                          {currentVehicle.fuel || "N/A"}
+                        </p>
                       </div>
                       <div className="bg-gray-800/50 border border-amber-600/20 rounded-lg p-4">
-                        <p className="text-amber-400 text-xs font-bold uppercase mb-2">Body Type</p>
-                        <p className="text-white font-semibold">{currentVehicle.body_type || 'N/A'}</p>
+                        <p className="text-amber-400 text-xs font-bold uppercase mb-2">
+                          Body Type
+                        </p>
+                        <p className="text-white font-semibold">
+                          {currentVehicle.body_type || "N/A"}
+                        </p>
                       </div>
                       <div className="bg-gray-800/50 border border-amber-600/20 rounded-lg p-4">
-                        <p className="text-amber-400 text-xs font-bold uppercase mb-2">Doors</p>
-                        <p className="text-white font-semibold">{currentVehicle.doors || 'N/A'}</p>
+                        <p className="text-amber-400 text-xs font-bold uppercase mb-2">
+                          Doors
+                        </p>
+                        <p className="text-white font-semibold">
+                          {currentVehicle.doors || "N/A"}
+                        </p>
                       </div>
                       <div className="bg-gray-800/50 border border-amber-600/20 rounded-lg p-4">
-                        <p className="text-amber-400 text-xs font-bold uppercase mb-2">Seating</p>
-                        <p className="text-white font-semibold">{currentVehicle.seating_capacity || 'N/A'}</p>
+                        <p className="text-amber-400 text-xs font-bold uppercase mb-2">
+                          Seating
+                        </p>
+                        <p className="text-white font-semibold">
+                          {currentVehicle.seating_capacity || "N/A"}
+                        </p>
                       </div>
                       <div className="bg-gray-800/50 border border-amber-600/20 rounded-lg p-4">
-                        <p className="text-amber-400 text-xs font-bold uppercase mb-2">Grade</p>
-                        <p className="text-white font-semibold">{currentVehicle.grade || 'N/A'}</p>
+                        <p className="text-amber-400 text-xs font-bold uppercase mb-2">
+                          Grade
+                        </p>
+                        <p className="text-white font-semibold">
+                          {currentVehicle.grade || "N/A"}
+                        </p>
                       </div>
                     </div>
                   )}
@@ -443,45 +563,73 @@ export default function StockPage() {
               <div className="space-y-4">
                 {/* Price Box */}
                 <div className="bg-gradient-to-br from-amber-600 to-amber-700 rounded-xl p-6 text-black">
-                  <p className="text-sm font-bold uppercase tracking-widest opacity-90">FOB Price</p>
+                  <p className="text-sm font-bold uppercase tracking-widest opacity-90">
+                    FOB Price
+                  </p>
                   <h3 className="text-4xl font-black mt-2">
-                    {currentVehicle.fob_price ? `Rs. ${Number(currentVehicle.fob_price).toLocaleString()}` : 'Contact Us'}
+                    {currentVehicle.fob_price
+                      ? `Rs. ${Number(
+                          currentVehicle.fob_price
+                        ).toLocaleString()}`
+                      : "Contact Us"}
                   </h3>
-                  <p className="text-sm mt-2 opacity-80">FOB price, contact for total cost</p>
+                  <p className="text-sm mt-2 opacity-80">
+                    FOB price, contact for total cost
+                  </p>
                 </div>
 
                 {/* Key Info Grid */}
                 <div className="space-y-3">
                   <div className="bg-gray-800/50 border border-amber-600/20 rounded-lg p-4">
-                    <p className="text-amber-400 text-xs font-bold uppercase mb-2">Mileage</p>
+                    <p className="text-amber-400 text-xs font-bold uppercase mb-2">
+                      Mileage
+                    </p>
                     <p className="text-white text-lg font-semibold">
-                      {currentVehicle.mileage ? `${currentVehicle.mileage.toLocaleString()} km` : 'N/A'}
+                      {currentVehicle.mileage
+                        ? `${currentVehicle.mileage.toLocaleString()} km`
+                        : "N/A"}
                     </p>
                   </div>
                   <div className="bg-gray-800/50 border border-amber-600/20 rounded-lg p-4">
-                    <p className="text-amber-400 text-xs font-bold uppercase mb-2">Year</p>
-                    <p className="text-white text-lg font-semibold">{currentVehicle.manufacture_year || 'N/A'}</p>
+                    <p className="text-amber-400 text-xs font-bold uppercase mb-2">
+                      Year
+                    </p>
+                    <p className="text-white text-lg font-semibold">
+                      {currentVehicle.manufacture_year || "N/A"}
+                    </p>
                   </div>
                   <div className="bg-gray-800/50 border border-amber-600/20 rounded-lg p-4">
-                    <p className="text-amber-400 text-xs font-bold uppercase mb-2">Color</p>
-                    <p className="text-white text-lg font-semibold">{currentVehicle.exterior_color || 'N/A'}</p>
+                    <p className="text-amber-400 text-xs font-bold uppercase mb-2">
+                      Color
+                    </p>
+                    <p className="text-white text-lg font-semibold">
+                      {currentVehicle.exterior_color || "N/A"}
+                    </p>
                   </div>
                   <div className="bg-gray-800/50 border border-amber-600/20 rounded-lg p-4">
-                    <p className="text-amber-400 text-xs font-bold uppercase mb-2">Location</p>
+                    <p className="text-amber-400 text-xs font-bold uppercase mb-2">
+                      Location
+                    </p>
                     <p className="text-white text-lg font-semibold flex items-center gap-1">
                       <MapPin className="w-4 h-4" />
-                      {currentVehicle.stock_location || 'N/A'}
+                      {currentVehicle.stock_location || "N/A"}
                     </p>
                   </div>
                 </div>
 
                 {/* Seller Info */}
                 <div className="bg-gray-800/50 border border-amber-600/20 rounded-lg p-4">
-                  <p className="text-amber-400 text-xs font-bold uppercase mb-3">Seller</p>
-                  <p className="text-white font-semibold mb-2">{currentVehicle.sales_person || 'Grand Carz'}</p>
+                  <p className="text-amber-400 text-xs font-bold uppercase mb-3">
+                    Seller
+                  </p>
+                  <p className="text-white font-semibold mb-2">
+                    {currentVehicle.sales_person || "Grand Carz"}
+                  </p>
                   <div className="flex items-center gap-1 mb-3">
                     {[...Array(5)].map((_, i) => (
-                      <div key={i} className="w-4 h-4 text-amber-400">★</div>
+                      <div key={i} className="w-4 h-4 text-amber-400">
+                        ★
+                      </div>
                     ))}
                     <span className="text-amber-400 text-sm ml-1">4.9/5</span>
                   </div>
@@ -502,8 +650,12 @@ export default function StockPage() {
 
                 {/* Safety Info */}
                 <div className="bg-blue-600/20 border border-blue-500/30 rounded-lg p-4 text-center">
-                  <p className="text-blue-400 text-sm font-semibold">✓ Verified Seller</p>
-                  <p className="text-gray-400 text-xs mt-1">All details have been verified</p>
+                  <p className="text-blue-400 text-sm font-semibold">
+                    ✓ Verified Seller
+                  </p>
+                  <p className="text-gray-400 text-xs mt-1">
+                    All details have been verified
+                  </p>
                 </div>
               </div>
             </div>

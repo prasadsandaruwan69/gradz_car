@@ -56,13 +56,7 @@ export default function VehicleList() {
     }
   };
 
-  if (loading) {
-    return <div className="text-center p-4 text-white">Loading vehicles...</div>;
-  }
 
-  if (error) {
-    return <div className="text-center p-4 text-red-500">Error: {error}</div>;
-  }
 
   return (
     <div className="p-4 bg-black min-h-screen text-white">
