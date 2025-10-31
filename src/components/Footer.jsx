@@ -1,11 +1,11 @@
 "use client";
 import { useState } from "react";
 import { Facebook, Instagram, Twitter, Linkedin, Youtube, Mail, Phone, MapPin, Send } from "lucide-react";
-
+import { usePathname } from "next/navigation";
 export default function Footer() {
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
-
+  const pathname = usePathname();
   const handleSubscribe = () => {
     if (email) {
       setSubscribed(true);
@@ -65,31 +65,33 @@ export default function Footer() {
             </h3>
             <ul className="space-y-3">
               <li>
-                <a href="#" className="text-gray-400 hover:text-amber-500 transition-colors text-sm flex items-center group">
+                <a href="/" className="text-gray-400 hover:text-amber-500 transition-colors text-sm flex items-center group">
                   <span className="w-0 h-0.5 bg-amber-500 group-hover:w-4 transition-all duration-300 mr-0 group-hover:mr-2"></span>
                   Home
                 </a>
               </li>
+        
               <li>
-                <a href="#" className="text-gray-400 hover:text-amber-500 transition-colors text-sm flex items-center group">
+                <a href="/stocks" className="text-gray-400 hover:text-amber-500 transition-colors text-sm flex items-center group">
                   <span className="w-0 h-0.5 bg-amber-500 group-hover:w-4 transition-all duration-300 mr-0 group-hover:mr-2"></span>
-                  About Us
+                 Stock
+                </a>
+              </li>
+           
+              <li>
+                <a href="/news" className="text-gray-400 hover:text-amber-500 transition-colors text-sm flex items-center group">
+                  <span className="w-0 h-0.5 bg-amber-500 group-hover:w-4 transition-all duration-300 mr-0 group-hover:mr-2"></span>
+                  News
+                </a>
+              </li>
+                 <li>
+                <a href="/reviews" className="text-gray-400 hover:text-amber-500 transition-colors text-sm flex items-center group">
+                  <span className="w-0 h-0.5 bg-amber-500 group-hover:w-4 transition-all duration-300 mr-0 group-hover:mr-2"></span>
+                  Reviews
                 </a>
               </li>
               <li>
-                <a href="#" className="text-gray-400 hover:text-amber-500 transition-colors text-sm flex items-center group">
-                  <span className="w-0 h-0.5 bg-amber-500 group-hover:w-4 transition-all duration-300 mr-0 group-hover:mr-2"></span>
-                  Collections
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-gray-400 hover:text-amber-500 transition-colors text-sm flex items-center group">
-                  <span className="w-0 h-0.5 bg-amber-500 group-hover:w-4 transition-all duration-300 mr-0 group-hover:mr-2"></span>
-                  Services
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-gray-400 hover:text-amber-500 transition-colors text-sm flex items-center group">
+                <a href="/contacts" className="text-gray-400 hover:text-amber-500 transition-colors text-sm flex items-center group">
                   <span className="w-0 h-0.5 bg-amber-500 group-hover:w-4 transition-all duration-300 mr-0 group-hover:mr-2"></span>
                   Contact
                 </a>

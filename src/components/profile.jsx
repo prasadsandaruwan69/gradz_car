@@ -14,7 +14,8 @@ export default function LeadershipProfiles() {
       name: "Mohan Somachandra",
       title: "Director / Chief Executive Officer (CEO)",
       bio: "Strategic visionary defining the company's direction with over two decades of executive excellence.",
-      image: "M",
+      image: "/Mr.Mohan.jpeg",
+
       color: "from-amber-600 to-amber-700",
       highlights: [
         { icon: Briefcase, text: "10+ years in corporate automotive management" },
@@ -28,7 +29,7 @@ export default function LeadershipProfiles() {
       name: "Janaka Suriyapperuma",
       title: "Director - Marketing",
       bio: "Marketing strategist with 23+ years driving success across diverse sectors and luxury segments.",
-      image: "J",
+       image: "/Mr.Janaka-gradz-car.jpeg",
       color: "from-amber-500 to-amber-600",
       highlights: [
         { icon: Award, text: "23 years progressive multi-sector management" },
@@ -42,7 +43,7 @@ export default function LeadershipProfiles() {
       name: "Sajeewa Karunanayake",
       title: "Manager - Key Accounts",
       bio: "Dynamic sales leader with 10+ years driving revenue growth and building high-performing teams.",
-      image: "S",
+      image: "Mr.Sajeewa.jpeg",
       color: "from-amber-400 to-amber-500",
       highlights: [
         { icon: Briefcase, text: "10+ years automobile industry expertise" },
@@ -86,10 +87,7 @@ export default function LeadershipProfiles() {
   return (
     <section className="relative bg-black text-white py-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
       {/* Background Elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 right-20 w-96 h-96 bg-amber-600 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse"></div>
-        <div className="absolute -bottom-40 left-20 w-96 h-96 bg-amber-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse" style={{ animationDelay: '2s' }}></div>
-      </div>
+  
 
       <div className="relative max-w-7xl mx-auto">
         {/* Header */}
@@ -122,8 +120,15 @@ export default function LeadershipProfiles() {
                   }`}>
                     {/* Left - Avatar and Name */}
                     <div className="flex flex-col justify-center">
-                      <div className={`w-32 h-32 rounded-2xl bg-gradient-to-br ${current.color} flex items-center justify-center mb-6 shadow-xl transform transition-transform duration-700 hover:scale-110`}>
-                        <span className="text-6xl font-black text-black">{current.image}</span>
+                      <div className={`w-64 h-52 rounded-2xl bg-gradient-to-br ${current.color} flex items-center justify-center mb-6 shadow-xl transform transition-transform duration-700 hover:scale-110`}>
+                    <div className="w-64 h-52 rounded-2xl overflow-hidden shadow-xl transform transition-transform duration-700 hover:scale-110 border-2 border-amber-500/50">
+  <img
+    src={current.image}
+    alt={current.name}
+    className="w-full h-full object-cover"
+  />
+</div>
+
                       </div>
                       <h3 className="text-3xl font-bold mb-2 text-white transition-all duration-700">{current.name}</h3>
                       <p className="text-xl text-amber-400 font-semibold transition-all duration-700">{current.title}</p>

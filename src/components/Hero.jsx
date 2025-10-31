@@ -1,10 +1,15 @@
 "use client";
 import { useState, useEffect } from "react";
-import VisionMission from "./VisionMition";
+
 import Link from "next/link";
-import Grandcarcapital from "./grandzcapital";
-import Profile from "./profile";
-import GrandCarzPartnership from "./GrandCarzPartnership";
+
+
+import dynamic from "next/dynamic";
+
+const Grandcarcapital = dynamic(() => import("./grandzcapital"), { ssr: false });
+const VisionMission = dynamic(() => import("./VisionMition"), { ssr: false });
+const GrandCarzPartnership = dynamic(() => import("./GrandCarzPartnership"), { ssr: false });
+const Profile = dynamic(() => import("./profile"), { ssr: false });
 
 export default function Hero() {
   const [isLoaded, setIsLoaded] = useState(false);
